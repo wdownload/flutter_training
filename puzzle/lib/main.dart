@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puzzle/answer.dart';
 import 'package:puzzle/question.dart';
 
 void main() => runApp(MyApp());
@@ -19,8 +20,18 @@ class MyAppState extends State<MyApp> {
   }
 
   final questions = [
-    "What is your favorite color?",
-    "What is your favorite animal?"
+    {
+      "questionText": "What\'s is your favorite color?",
+      "answers": ["Blue", "Yellow", "Purple", "Red"]
+    },
+    {
+      "questionText": "What\'s  is your favorite animal?",
+      "answers": ["Dog", "Cat", "Parrot"]
+    },
+    {
+      "questionText": "What\'s  is your favorite actor?",
+      "answers": ["Chris Pat", "Samuel Jackson", "Robert De Niro", "Al Pacino"]
+    },
   ];
   @override
   Widget build(BuildContext context) {
@@ -32,12 +43,9 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questions[questionIndex]),
-            ElevatedButton(child: Text("Answer 1"), onPressed: answerQuestion),
-            ElevatedButton(
-                child: Text("Answer 2"),
-                onPressed: () => print("Answered 2 given")),
-            ElevatedButton(child: Text("Answer 3"), onPressed: answerQuestion),
+            Question(questions[questionIndex]["questionText"]),
+            ...((questions[questionIndex]["answers"] as List<String>)
+                .map((answer) => Answer(answerQuestion, answer))).toList()
           ],
         ),
       ),
