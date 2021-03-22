@@ -15,24 +15,54 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   var _questionIndex = 0;
-  void _answerQuestion() {
+
+  var _score = 0;
+  void _answerQuestion(int score) {
     setState(() {
       _questionIndex = _questionIndex + 1;
+      _score += score;
+    });
+
+    if (_questionIndex < _questions.length) {
+      print("There has more question to be answered!");
+    } else {
+      print("The final score is $_score");
+    }
+  }
+
+  void _resetQuiz() {
+    setState(() {
+      _score = 0;
+      _questionIndex = 0;
     });
   }
 
-  final _questions = [
+  final _questions = const [
     {
       "questionText": "What\'s is your favorite color?",
-      "answers": ["Blue", "Yellow", "Purple", "Red"]
+      "answers": [
+        {"answerText": "Blue", "score": 10},
+        {"answerText": "Yellow", "score": 8},
+        {"answerText": "Purple", "score": 6},
+        {"answerText": "Red", "score": 4}
+      ]
     },
     {
       "questionText": "What\'s  is your favorite animal?",
-      "answers": ["Dog", "Cat", "Parrot"]
+      "answers": [
+        {"answerText": "Dog", "score": 10},
+        {"answerText": "Cat", "score": 5},
+        {"answerText": "Parrot", "score": 1}
+      ]
     },
     {
       "questionText": "What\'s  is your favorite actor?",
-      "answers": ["Chris Pat", "Samuel Jackson", "Robert De Niro", "Al Pacino"]
+      "answers": [
+        {"answerText": "Chris Pat", "score": 10},
+        {"answerText": "Samuel Jackson", "score": 8},
+        {"answerText": "Robert De Niro", "score": 6},
+        {"answerText": "Al Pacino", "score": 4}
+      ]
     },
   ];
   @override
@@ -49,7 +79,7 @@ class MyAppState extends State<MyApp> {
                   answerQuestion: _answerQuestion,
                   questionIndex: _questionIndex,
                 )
-              : Result()),
+              : Result(_score, _resetQuiz)),
     );
   }
 }
