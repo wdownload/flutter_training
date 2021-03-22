@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:puzzle/answer.dart';
 import 'package:puzzle/question.dart';
+import 'package:puzzle/quiz.dart';
+import 'package:puzzle/result.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,14 +14,14 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
-  void answerQuestion() {
+  var _questionIndex = 0;
+  void _answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
   }
 
-  final questions = [
+  final _questions = [
     {
       "questionText": "What\'s is your favorite color?",
       "answers": ["Blue", "Yellow", "Purple", "Red"]
@@ -38,17 +40,16 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "Puzzle Lesson",
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Simple Puzzle"),
-        ),
-        body: Column(
-          children: [
-            Question(questions[questionIndex]["questionText"]),
-            ...((questions[questionIndex]["answers"] as List<String>)
-                .map((answer) => Answer(answerQuestion, answer))).toList()
-          ],
-        ),
-      ),
+          appBar: AppBar(
+            title: Text("Simple Puzzle"),
+          ),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  questions: _questions,
+                  answerQuestion: _answerQuestion,
+                  questionIndex: _questionIndex,
+                )
+              : Result()),
     );
   }
 }
