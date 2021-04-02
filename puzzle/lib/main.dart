@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:puzzle/answer.dart';
-import 'package:puzzle/question.dart';
+
 import 'package:puzzle/quiz.dart';
 import 'package:puzzle/result.dart';
 
@@ -68,6 +67,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Puzzle Lesson",
       home: Scaffold(
           appBar: AppBar(
