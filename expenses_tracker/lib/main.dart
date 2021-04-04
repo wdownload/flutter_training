@@ -1,6 +1,9 @@
+import 'package:expenses_tracker/widget/new_transaction.dart';
+import 'package:expenses_tracker/widget/transactions_list.dart';
+import 'package:expenses_tracker/widget/user_transactions.dart';
 import 'package:flutter/material.dart';
 
-import './transaction.dart';
+import 'models/transaction.dart';
 
 void main() => {runApp(MyApp())};
 
@@ -28,15 +31,13 @@ class MyApp extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 100,
-              child: Card(color: Colors.blue, child: Text("Header")),
+              child: Card(
+                color: Colors.blue,
+                child: Text("Header"),
+                elevation: 5,
+              ),
             ),
-            Column(
-              children: transactions.map((e) {
-                return Card(
-                  child: Text(e.title),
-                );
-              }).toList(),
-            )
+            UserTransactions()
           ],
         ),
       ),
